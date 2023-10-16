@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainMenu</class>
+ <widget class="QMainWindow" name="MainMenu">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>631</width>
+    <height>342</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Controlcenter</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout"/>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>631</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_base">
+    <property name="title">
+     <string>База</string>
+    </property>
+    <addaction name="action_create_db"/>
+    <addaction name="action_connect_db"/>
+   </widget>
+   <widget class="QMenu" name="obj_settings">
+    <property name="title">
+     <string>Настройки</string>
+    </property>
+    <addaction name="action_settings"/>
+    <addaction name="separator"/>
+    <addaction name="action_exit"/>
+   </widget>
+   <addaction name="obj_settings"/>
+   <addaction name="menu_base"/>
+  </widget>
+  <action name="action_create_db">
+   <property name="text">
+    <string>Создать базу данных</string>
+   </property>
+  </action>
+  <action name="action_connect_db">
+   <property name="text">
+    <string>Подключить базу данных</string>
+   </property>
+  </action>
+  <action name="action_settings">
+   <property name="text">
+    <string>Настройки пользователя</string>
+   </property>
+  </action>
+  <action name="action_exit">
+   <property name="text">
+    <string>Выход</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
