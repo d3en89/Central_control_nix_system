@@ -32,9 +32,9 @@ def add_user(name="admin", pasw="admin"):
         return err
 
 
-def add_server(name, ip, username, password, ssh_port):
+def add_server(name, ip, username, password, ssh_port,group="",domain="",system=""):
     try:
-        srv = Servers(name, ip, username, password, ssh_port)
+        srv = Servers(name, ip, username, password, ssh_port,group,domain,system)
         session = Session()
         session.add(srv)
         session.commit()
@@ -50,5 +50,6 @@ def get_user(name=""):
 
 def get_servers(name=""):
     session = Session()
-    return session.query(Servers.dns_name,Servers.ip,Servers.username,Servers.password,Servers.ssh_port).all()
+    return session.query(Servers.dns_name,Servers.ip,Servers.username,Servers.password,Servers.ssh_port,Servers.group,
+                         Servers.domain,Servers.system).all()
 
