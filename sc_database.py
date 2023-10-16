@@ -13,7 +13,7 @@ def create_database():
         return "Такое имя базы уже существует"
 
 
-def add_user(name='admin', pasw='admin'):
+def add_user(name="admin", pasw="admin"):
     user = User_data(name, pasw)
     session = Session()
     session.add(user)

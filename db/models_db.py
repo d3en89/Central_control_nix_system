@@ -15,7 +15,7 @@ class User_data(Base):
         self.password = pasw
 
 class Servers(Base):
-    __tablename__ = 'servers'
+    __tablename__ = "servers"
     id = Column(Integer, primary_key=True)
     dns_name = Column(String)
     ip = Column(String)
@@ -31,7 +31,7 @@ class Servers(Base):
         self.ssh_port = port
 
 class Syslog(Base):
-    __tablename__ = 'syslog'
+    __tablename__ = "syslog"
     id = Column(Integer, primary_key=True)
     date = Column(DateTime, default=datetime.now().strftime("%Y-%m-%d %H:%M"))
     message = Column(String)
