@@ -33,5 +33,8 @@ class Servers(Base):
 class Syslog(Base):
     __tablename__ = "syslog"
     id = Column(Integer, primary_key=True)
-    date = Column(DateTime, default=datetime.now().strftime("%Y-%m-%d %H:%M"))
+    date = Column(String, default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     message = Column(String)
+
+    def __init__(self, mes):
+        self.message = mes
