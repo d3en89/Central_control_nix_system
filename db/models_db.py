@@ -30,3 +30,9 @@ class Servers(Base):
         self.password = pasw
         self.ssh_port = port
 
+class Syslog(Base):
+    __tablename__ = 'syslog'
+    id = Column(Integer, primary_key=True)
+    date = Column(DateTime)
+    message = Column(String)
+
