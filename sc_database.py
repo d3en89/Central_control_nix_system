@@ -1,4 +1,4 @@
-from db.database import create_db, Session, DATABASE
+from db.database import connect_db, Session, DATABASE
 from db.models_db import User_data, Servers, Syslog
 from os import path
 
@@ -12,13 +12,13 @@ def log_write(mes):
 def create_database(name=DATABASE):
     if not path.exists(name):
         try:
-            create_db()
+            connect_db()
             log_write(f"Создание базы {name} прошло успешно")
+            return f"Создание базы {name} прошло успешно"
         except Exception as err:
-            log_write(err)
+            return err
     else:
-        log_write(f"Такое имя базы уже существует")
-
+        return f"Имя default.db уже существует"
 def add_user(name="admin", pasw="admin"):
     try:
         user = User_data(name, pasw)

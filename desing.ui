@@ -43,6 +43,7 @@
    <addaction name="obj_settings"/>
    <addaction name="menu_base"/>
   </widget>
+  <widget class="QStatusBar" name="statusBar"/>
   <action name="action_create_db">
    <property name="text">
     <string>Создать базу данных</string>

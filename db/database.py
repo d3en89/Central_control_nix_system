@@ -8,6 +8,6 @@ engine = create_engine(f"sqlite:///{DATABASE}")
 Session = sessionmaker(bind=engine)
 Base = declarative_base()
 
-def create_db():
+def connect_db():
     Base.metadata.create_all(engine)
 

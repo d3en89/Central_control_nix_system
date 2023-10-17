@@ -1,6 +1,6 @@
 import sys
 from PyQt5 import QtWidgets, QtCore
-
+from sc_database import create_database
 import desing
 import os
 
@@ -14,6 +14,10 @@ class ExampleApp(QtWidgets.QMainWindow, desing.Ui_MainMenu):
         ### Settings
         self.action_exit.triggered.connect(QtCore.QCoreApplication.instance().quit)
         ### DataBase
+        self.action_create_db.triggered.connect(self.database_create)
+
+    def database_create(self):
+        self.statusBar.showMessage(create_database())
 
 
     # def browse_folder(self):
