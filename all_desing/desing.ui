@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>981</width>
-    <height>357</height>
+    <width>847</width>
+    <height>432</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>981</width>
+     <width>847</width>
      <height>21</height>
     </rect>
    </property>
@@ -30,7 +30,7 @@
     <addaction name="action_create_db"/>
     <addaction name="action_connect_db"/>
     <addaction name="separator"/>
-    <addaction name="action_2"/>
+    <addaction name="action_syslog"/>
    </widget>
    <widget class="QMenu" name="obj_settings">
     <property name="title">
@@ -64,7 +64,7 @@
     <string>Выход</string>
    </property>
   </action>
-  <action name="action_2">
+  <action name="action_syslog">
    <property name="text">
     <string>Просмотр логов</string>
    </property>

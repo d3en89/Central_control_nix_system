@@ -1,24 +1,28 @@
 import sys
 from PyQt5 import QtWidgets, QtCore
+from  PyQt5.QtWidgets import QInputDialog, QMessageBox
 from sc_database import create_database
-import desing
-import os
+from all_desing import desing, createUser
+
+class CreateNewUser(QtWidgets.QWidget, createUser.Ui_createUser):
+    """ Иницилизируем класс дизайна который будет вызывться при нажатии кнопки Создать базу данных """
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
 
 
 class ExampleApp(QtWidgets.QMainWindow, desing.Ui_MainMenu):
+    """ Иницилизируем класс основного дизайна """
     def __init__(self):
-        # Это здесь нужно для доступа к переменным, методам
-        # и т.д. в файле design.py
         super().__init__()
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна
-        ### Settings
         self.action_exit.triggered.connect(QtCore.QCoreApplication.instance().quit)
-        ### DataBase
         self.action_create_db.triggered.connect(self.database_create)
 
-    def database_create(self):
-        self.statusBar.showMessage(create_database())
 
+    def database_create(self):
+        self.user = CreateNewUser()
+        self.user.show()
 
     # def browse_folder(self):
     #     self.listWidget.clear()  # На случай, если в списке уже есть элементы
@@ -29,6 +33,7 @@ class ExampleApp(QtWidgets.QMainWindow, desing.Ui_MainMenu):
     #     if directory:  # не продолжать выполнение, если пользователь не выбрал директорию
     #         for file_name in os.listdir(directory):  # для каждого файла в директории
     #             self.listWidget.addItem(file_name)
+
 def main():
     app = QtWidgets.QApplication(sys.argv)  # Новый экземпляр QApplication
     window = ExampleApp()  # Создаём объект класса ExampleApp
