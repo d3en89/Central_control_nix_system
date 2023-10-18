@@ -1,4 +1,4 @@
-from db.database import create_db, Session, DATABASE
+from db.database import connect_db, Session, DATABASE
 from db.models_db import User_data, Servers
 from sc_database import create_database, add_user, add_server, get_user,get_servers
 from os import path, remove
@@ -8,7 +8,7 @@ import pytest
 def test_create_database(db):
     if path.exists(db):
         remove(db)
-    create_database()
+    connect_db()
     assert path.exists(db) == True
 
 def test_user_create(clean_user_table):
