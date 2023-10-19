@@ -1,7 +1,7 @@
 import sys
 from PyQt5 import QtWidgets, QtCore
 from  PyQt5.QtWidgets import QInputDialog, QMessageBox
-from sc_database import create_database
+from sc_database import create_database, add_user, DATABASE
 from all_desing import desing, createUser
 
 class CreateNewUser(QtWidgets.QWidget, createUser.Ui_createUser):
@@ -9,6 +9,33 @@ class CreateNewUser(QtWidgets.QWidget, createUser.Ui_createUser):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.status = ""
+        self.pushButton_post.clicked.connect(self.create_datebase)
+        #(self.create_datebase(self.lineEdit_new_user.text, self.lineEdit_new_password.text())
+
+    def create_datebase(self):
+        error = QMessageBox()
+        if  self.lineEdit_new_user.text() == "" or self.lineEdit_new_password.text()  == "":
+            error.setWindowTitle("Ошибка")
+            error.setText( "Обязательно надо ввести новые имя пользователя и пароль ")
+            error.setIcon(QMessageBox.Warning)
+            error.exec_()
+            return CreateNewUser().show()
+        else:
+            status_db = create_database()
+            if status_db == f"Создание базы {DATABASE} прошло успешно":
+                add_user(self.lineEdit_new_user.text(), self.lineEdit_new_password.text())
+                error.setWindowTitle("Информация")
+                error.setText("База данных и новый пользователь успешно созданны")
+                error.setIcon(QMessageBox.Information)
+                error.exec_()
+                self.status = "База данных и новый пользователь успешно созданны"
+            else:
+                error.setWindowTitle("Внимание")
+                error.setText(f"{status_db}")
+                error.setIcon(QMessageBox.Warning)
+                error.exec_()
+        self.close()
 
 
 class ExampleApp(QtWidgets.QMainWindow, desing.Ui_MainMenu):
@@ -17,12 +44,14 @@ class ExampleApp(QtWidgets.QMainWindow, desing.Ui_MainMenu):
         super().__init__()
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна
         self.action_exit.triggered.connect(QtCore.QCoreApplication.instance().quit)
-        self.action_create_db.triggered.connect(self.database_create)
+        self.action_create_db.triggered.connect(self.active_proc_create)
 
 
-    def database_create(self):
+    def active_proc_create(self):
         self.user = CreateNewUser()
         self.user.show()
+
+
 
     # def browse_folder(self):
     #     self.listWidget.clear()  # На случай, если в списке уже есть элементы
