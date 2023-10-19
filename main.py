@@ -3,7 +3,7 @@ from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtWidgets import QInputDialog, QMessageBox
 import configparser
 
-from sc_database import create_database, add_user, DATABASE, Config
+from sc_database import create_database, add_user, DATABASE, Config, check_settings
 from all_desing import desing, createUser
 
 
@@ -70,6 +70,7 @@ class ExampleApp(QtWidgets.QMainWindow, desing.Ui_MainMenu):
     #             self.listWidget.addItem(file_name)
 
 def main():
+    check_settings()
     app = QtWidgets.QApplication(sys.argv)  # Новый экземпляр QApplication
     window = ExampleApp()  # Создаём объект класса ExampleApp
     window.show()  # Показываем окно

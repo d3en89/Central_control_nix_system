@@ -20,6 +20,13 @@ class Config(configparser.ConfigParser):
             self.write(conf_file)
 
 
+def check_settings():
+    if not path.exists('settings.conf'):
+        with open('settings.conf', "w") as file:
+            file.write("[base]\n")
+            file.write("username = \n")
+            file.write("path_db = \n")
+
 def log_write(mes :str):
     session = Session()
     str_log = Syslog(mes)
