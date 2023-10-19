@@ -1,13 +1,32 @@
+from os import path
+import configparser
+
 from db.database import connect_db, Session, DATABASE
 from db.models_db import User_data, Servers, Syslog
-from os import path
 
-def log_write(mes):
+
+class Config(configparser.ConfigParser):
+    __config_path = 'settings.conf'
+
+    def get_settings(self):
+        self.read(self.__config_path)
+        self.db = self.get('base', 'path_db')
+        self.username = self.get('base', 'username')
+
+    def set_settings(self, username, database='default.db'):
+        self.set('base', 'path_db', database)
+        self.set('base', 'username', username)
+        with open(self.__config_path, 'r+') as conf_file:
+            self.write(conf_file)
+
+
+def log_write(mes :str):
     session = Session()
     str_log = Syslog(mes)
     session.add(str_log)
     session.commit()
     session.close()
+
 
 def create_database(name=DATABASE):
     if not path.exists(name):
@@ -19,6 +38,7 @@ def create_database(name=DATABASE):
             return err
     else:
         return f"Имя default.db уже существует"
+
 def add_user(name="admin", pasw="admin"):
     try:
         user = User_data(name, pasw)

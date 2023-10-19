@@ -1,18 +1,20 @@
 import sys
 from PyQt5 import QtWidgets, QtCore
-from  PyQt5.QtWidgets import QInputDialog, QMessageBox
-from sc_database import create_database, add_user, DATABASE
+from PyQt5.QtWidgets import QInputDialog, QMessageBox
+import configparser
+
+from sc_database import create_database, add_user, DATABASE, Config
 from all_desing import desing, createUser
 
-class CreateNewUser(QtWidgets.QWidget, createUser.Ui_createUser):
+
+
+class CreateNewDBUser(QtWidgets.QWidget, createUser.Ui_createUser):
     """ Иницилизируем класс дизайна который будет вызывться при нажатии кнопки Создать базу данных """
     def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.status = ""
         self.pushButton_post.clicked.connect(self.create_datebase)
-        #(self.create_datebase(self.lineEdit_new_user.text, self.lineEdit_new_password.text())
-
     def create_datebase(self):
         error = QMessageBox()
         if  self.lineEdit_new_user.text() == "" or self.lineEdit_new_password.text()  == "":
@@ -20,21 +22,25 @@ class CreateNewUser(QtWidgets.QWidget, createUser.Ui_createUser):
             error.setText( "Обязательно надо ввести новые имя пользователя и пароль ")
             error.setIcon(QMessageBox.Warning)
             error.exec_()
-            return CreateNewUser().show()
+            return CreateNewDBUser().show()
         else:
             status_db = create_database()
             if status_db == f"Создание базы {DATABASE} прошло успешно":
+                setting = Config()
+                setting.get_settings()
+                print(setting.db, setting.username)
+                setting.set_settings(self.lineEdit_new_user.text())
                 add_user(self.lineEdit_new_user.text(), self.lineEdit_new_password.text())
                 error.setWindowTitle("Информация")
                 error.setText("База данных и новый пользователь успешно созданны")
                 error.setIcon(QMessageBox.Information)
                 error.exec_()
-                self.status = "База данных и новый пользователь успешно созданны"
             else:
                 error.setWindowTitle("Внимание")
                 error.setText(f"{status_db}")
                 error.setIcon(QMessageBox.Warning)
                 error.exec_()
+
         self.close()
 
 
@@ -48,7 +54,7 @@ class ExampleApp(QtWidgets.QMainWindow, desing.Ui_MainMenu):
 
 
     def active_proc_create(self):
-        self.user = CreateNewUser()
+        self.user = CreateNewDBUser()
         self.user.show()
 
 
