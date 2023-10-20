@@ -6,7 +6,7 @@ from db.models_db import User_data, Servers, Syslog
 
 
 class Config(configparser.ConfigParser):
-    __config_path = 'settings.conf'
+    __config_path = '../settings.conf'
 
     def get_settings(self):
         self.read(self.__config_path)
@@ -18,14 +18,6 @@ class Config(configparser.ConfigParser):
         self.set('base', 'username', username)
         with open(self.__config_path, 'r+') as conf_file:
             self.write(conf_file)
-
-
-def check_settings():
-    if not path.exists('settings.conf'):
-        with open('settings.conf', "w") as file:
-            file.write("[base]\n")
-            file.write("username = \n")
-            file.write("path_db = \n")
 
 def log_write(mes :str):
     session = Session()
