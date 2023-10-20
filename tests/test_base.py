@@ -1,6 +1,5 @@
-from db.database import connect_db, Session, DATABASE
-from db.models_db import User_data, Servers
-from sc_database import create_database, add_user, add_server, get_user,get_servers
+from db.database import connect_db, DATABASE
+from scripts.sc_database import add_user, add_server, get_user,get_servers
 from os import path, remove
 import pytest
 

@@ -1,9 +1,9 @@
 import sys
 from PyQt5 import QtWidgets, QtCore
-from PyQt5.QtWidgets import QInputDialog, QMessageBox
-import configparser
+from PyQt5.QtWidgets import QMessageBox
 
-from sc_database import create_database, add_user, DATABASE, Config, check_settings
+from scripts.sc_database import create_database, add_user, DATABASE, Config
+from scripts.checking_param import check_latinitca, check_fsettings
 from all_desing import desing, createUser
 
 
@@ -23,12 +23,17 @@ class CreateNewDBUser(QtWidgets.QWidget, createUser.Ui_createUser):
             error.setIcon(QMessageBox.Warning)
             error.exec_()
             return CreateNewDBUser().show()
+        if not check_latinitca(self.lineEdit_new_user.text(), self.lineEdit_new_password.text()):
+            error.setWindowTitle("Ошибув")
+            error.setText("В имени пользоватея или пароле есть недопустимые символы")
+            error.setIcon(QMessageBox.Information)
+            error.exec_()
+            return CreateNewDBUser().show()
         else:
             status_db = create_database()
             if status_db == f"Создание базы {DATABASE} прошло успешно":
                 setting = Config()
                 setting.get_settings()
-                print(setting.db, setting.username)
                 setting.set_settings(self.lineEdit_new_user.text())
                 add_user(self.lineEdit_new_user.text(), self.lineEdit_new_password.text())
                 error.setWindowTitle("Информация")
@@ -70,7 +75,7 @@ class ExampleApp(QtWidgets.QMainWindow, desing.Ui_MainMenu):
     #             self.listWidget.addItem(file_name)
 
 def main():
-    check_settings()
+    check_fsettings()
     app = QtWidgets.QApplication(sys.argv)  # Новый экземпляр QApplication
     window = ExampleApp()  # Создаём объект класса ExampleApp
     window.show()  # Показываем окно
