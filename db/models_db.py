@@ -4,15 +4,15 @@ from db.database import Base
 from datetime import datetime
 
 
-class User_data(Base):
-    __tablename__ = "users"
-    id = Column(Integer, primary_key=True)
-    login = Column(String)
-    password = Column(String)
-
-    def __init__(self, name, pasw):
-        self.login = name
-        self.password = pasw
+# class User_data(Base):
+#     __tablename__ = "users"
+#     id = Column(Integer, primary_key=True)
+#     login = Column(String)
+#     password = Column(String)
+#
+#     def __init__(self, name, pasw):
+#         self.login = name
+#         self.password = pasw
 
 class Servers(Base):
     __tablename__ = "servers"

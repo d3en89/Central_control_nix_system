@@ -1,12 +1,13 @@
 from os import path
 import configparser
+import hashlib
 
 from db.database import connect_db, Session, DATABASE
-from db.models_db import User_data, Servers, Syslog
+from db.models_db import Servers, Syslog
 
 
 class Config(configparser.ConfigParser):
-    __config_path = '../settings.conf'
+    __config_path = './settings.conf'
 
     def get_settings(self):
         self.read(self.__config_path)
@@ -18,6 +19,7 @@ class Config(configparser.ConfigParser):
         self.set('base', 'username', username)
         with open(self.__config_path, 'r+') as conf_file:
             self.write(conf_file)
+
 
 def log_write(mes :str):
     session = Session()
@@ -38,20 +40,17 @@ def create_database(name=DATABASE):
     else:
         return f"Имя default.db уже существует"
 
-def add_user(name="admin", pasw="admin"):
-    try:
-        user = User_data(name, pasw)
-        session = Session()
-        session.add(user)
-        session.commit()
-        session.close()
-        log_write(f"User create {name} and password")
-    except Exception as err:
-        log_write(err)
-        return err
+def get_hash(login, password, serv_p=''):
+    u = hashlib.md5(login.encode()).hexdigest()
+    p = hashlib.md5((login+password).encode()).hexdigest()
+    if len(serv_p) != 0:
+        return hashlib.md5((login+serv_p+password).encode()).hexdigest()
+    else:
+        return (u,p)
 
 
-def add_server(name, ip, username, password, ssh_port,group="",domain="",system=""):
+
+def add_server(name, ip, username, password, ssh_port,group="",domain="",system="" ):
     try:
         srv = Servers(name, ip, username, password, ssh_port,group,domain,system)
         session = Session()
@@ -62,10 +61,6 @@ def add_server(name, ip, username, password, ssh_port,group="",domain="",system=
     except Exception as err:
         log_write(err)
         return err
-
-def get_user(name=""):
-    session = Session()
-    return  session.query(User_data.id, User_data.login,User_data.password).first()
 
 def get_servers(name=""):
     session = Session()

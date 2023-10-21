@@ -1,5 +1,5 @@
 from db.database import connect_db, DATABASE
-from scripts.sc_database import add_user, add_server, get_user,get_servers
+from scripts.sc_database import  add_server, get_servers
 from os import path, remove
 import pytest
 
@@ -9,12 +9,6 @@ def test_create_database(db):
         remove(db)
     connect_db()
     assert path.exists(db) == True
-
-def test_user_create(clean_user_table):
-    clean_user_table
-    add_user("haos", "patron")
-    assert get_user() == (1,"haos", "patron")
-
 
 def test_server_create(clean_servers_table):
     clean_servers_table
