@@ -12,8 +12,10 @@ def test_create_database(db):
 
 def test_server_create(clean_servers_table):
     clean_servers_table
-    list_servers = [("router", "332", "admin","pass", 22,"1","1","centos"),("mi", "34fd", "admina","passfff", 222,"","",""),
-                    ("ro", "322232", "an","fffffpass", 212,"","",""),("cisco", "332333", "prptpt","pasfsdfvs", 2244,"","","")]
+    list_servers = [("router", "332", "admin","pass", 22,"general","centos"),
+                    ("mi", "34fd", "admina","passfff", 222,"general","ubuntu"),
+                    ("ro", "322232", "an","fffffpass", 212,"general","ubuntu"),
+                    ("cisco", "332333", "prptpt","pasfsdfvs", 2244,"general","feebsd")]
     for i in list_servers:
        add_server(*i)
     assert get_servers() == list_servers

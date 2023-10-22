@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '.\desing.ui'
+# Form implementation generated from reading ui file '.\all_desing\ui\desing.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -14,12 +14,36 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainMenu(object):
     def setupUi(self, MainMenu):
         MainMenu.setObjectName("MainMenu")
-        MainMenu.resize(847, 432)
+        MainMenu.resize(678, 472)
         self.centralwidget = QtWidgets.QWidget(MainMenu)
         self.centralwidget.setObjectName("centralwidget")
+        self.gridLayout_4 = QtWidgets.QGridLayout(self.centralwidget)
+        self.gridLayout_4.setObjectName("gridLayout_4")
+        self.gridLayout = QtWidgets.QGridLayout()
+        self.gridLayout.setObjectName("gridLayout")
+        self.widget = QtWidgets.QWidget(self.centralwidget)
+        self.widget.setMinimumSize(QtCore.QSize(511, 408))
+        self.widget.setObjectName("widget")
+        self.gridLayout_2 = QtWidgets.QGridLayout(self.widget)
+        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.listView = QtWidgets.QListView(self.widget)
+        self.listView.setObjectName("listView")
+        self.gridLayout_2.addWidget(self.listView, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.widget, 0, 0, 1, 1)
+        self.widget_2 = QtWidgets.QWidget(self.centralwidget)
+        self.widget_2.setMinimumSize(QtCore.QSize(141, 411))
+        self.widget_2.setMaximumSize(QtCore.QSize(261, 931))
+        self.widget_2.setObjectName("widget_2")
+        self.gridLayout_3 = QtWidgets.QGridLayout(self.widget_2)
+        self.gridLayout_3.setObjectName("gridLayout_3")
+        self.listView_2 = QtWidgets.QListView(self.widget_2)
+        self.listView_2.setObjectName("listView_2")
+        self.gridLayout_3.addWidget(self.listView_2, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.widget_2, 0, 1, 1, 1)
+        self.gridLayout_4.addLayout(self.gridLayout, 0, 0, 1, 1)
         MainMenu.setCentralWidget(self.centralwidget)
         self.menuBar = QtWidgets.QMenuBar(MainMenu)
-        self.menuBar.setGeometry(QtCore.QRect(0, 0, 847, 21))
+        self.menuBar.setGeometry(QtCore.QRect(0, 0, 678, 21))
         self.menuBar.setObjectName("menuBar")
         self.menu_base = QtWidgets.QMenu(self.menuBar)
         self.menu_base.setObjectName("menu_base")

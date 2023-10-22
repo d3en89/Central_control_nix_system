@@ -50,9 +50,9 @@ def get_hash(login, password, serv_p=''):
 
 
 
-def add_server(name, ip, username, password, ssh_port,group="",domain="",system="" ):
+def add_server(name, ip, username, password, ssh_port,group="",system="" ):
     try:
-        srv = Servers(name, ip, username, password, ssh_port,group,domain,system)
+        srv = Servers(name, ip, username, password, ssh_port,group,system)
         session = Session()
         session.add(srv)
         session.commit()
@@ -65,5 +65,5 @@ def add_server(name, ip, username, password, ssh_port,group="",domain="",system=
 def get_servers(name=""):
     session = Session()
     return session.query(Servers.dns_name,Servers.ip,Servers.username,Servers.password,Servers.ssh_port,Servers.group,
-                         Servers.domain,Servers.system).all()
+                         Servers.system).all()
 

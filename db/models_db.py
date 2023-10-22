@@ -23,17 +23,15 @@ class Servers(Base):
     password = Column(String)
     ssh_port = Column(Integer)
     group = Column(String)
-    domain = Column(String)
     system = Column(String)
 
-    def __init__(self, name, ip, user, pasw, port, group, domain,system):
+    def __init__(self, name, ip, user, pasw, port, group,system):
         self.dns_name = name
         self.ip = ip
         self.username = user
         self.password = pasw
         self.ssh_port = port
         self.group = group
-        self.domain = domain
         self.system = system
 
 class Syslog(Base):

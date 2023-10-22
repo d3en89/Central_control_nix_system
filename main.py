@@ -67,6 +67,8 @@ class ExampleApp(QtWidgets.QMainWindow, desing.Ui_MainMenu):
                 seti = Config()
                 seti.get_settings()
                 seti.set_settings(f"{self.ub}",f"{db_file}")
+            elif db_file == '':
+                pass
             else:
                 error.setWindowTitle('Ошибка')
                 error.setText('Выбранная вами база не подходит для работы программы')
