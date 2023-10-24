@@ -1,18 +1,9 @@
 from sqlalchemy import create_engine, MetaData, Table, Integer, String, \
     Column, DateTime, ForeignKey, Numeric
+from typing import NoReturn
+
 from db.database import Base
 from datetime import datetime
-
-
-# class User_data(Base):
-#     __tablename__ = "users"
-#     id = Column(Integer, primary_key=True)
-#     login = Column(String)
-#     password = Column(String)
-#
-#     def __init__(self, name, pasw):
-#         self.login = name
-#         self.password = pasw
 
 class Servers(Base):
     __tablename__ = "servers"
@@ -25,7 +16,7 @@ class Servers(Base):
     group = Column(String)
     system = Column(String)
 
-    def __init__(self, name, ip, user, pasw, port, group,system):
+    def __init__(self, name, ip, user, pasw, port, group,system) -> NoReturn:
         self.dns_name = name
         self.ip = ip
         self.username = user
@@ -40,5 +31,5 @@ class Syslog(Base):
     date = Column(String, default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     message = Column(String)
 
-    def __init__(self, mes):
+    def __init__(self, mes) -> NoReturn:
         self.message = mes

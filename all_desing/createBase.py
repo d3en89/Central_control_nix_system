@@ -9,10 +9,10 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from typing import NoReturn
 
 class Ui_createBase(object):
-    def setupUi(self, createBase):
+    def setupUi(self, createBase) -> NoReturn:
         createBase.setObjectName("createBase")
         createBase.resize(400, 101)
         self.label_new_user = QtWidgets.QLabel(createBase)
@@ -34,7 +34,7 @@ class Ui_createBase(object):
         self.retranslateUi(createBase)
         QtCore.QMetaObject.connectSlotsByName(createBase)
 
-    def retranslateUi(self, createBase):
+    def retranslateUi(self, createBase) -> NoReturn:
         _translate = QtCore.QCoreApplication.translate
         createBase.setWindowTitle(_translate("createUser", "Form"))
         self.label_new_user.setText(_translate("createUser", "Login"))

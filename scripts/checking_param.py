@@ -1,12 +1,13 @@
 from string import ascii_lowercase, ascii_uppercase,digits,punctuation
 from os import path
 import sqlalchemy
+from typing import NoReturn
 
 from db.models_db import Syslog, Servers
 
 latinitca = ascii_uppercase + ascii_lowercase + digits
 password = latinitca + punctuation
-def check_latinitca(*arg):
+def check_latinitca(*arg) -> bool:
     ans = []
     for i in arg:
         if len(i) > 0 :
@@ -16,7 +17,7 @@ def check_latinitca(*arg):
             return False
     return all(ans)
 
-def check_fsettings():
+def check_fsettings() -> NoReturn:
     if not path.exists('./settings.conf'):
         with open('./settings.conf', "w") as file:
             file.write("[base]\n")
@@ -26,18 +27,16 @@ def check_fsettings():
 def check_db_table(path_to_db):
     list_class = [Servers, Syslog]
     engine = sqlalchemy.engine.create_engine(f"sqlite:///{path_to_db}")
-    def check_table():
+    def check_table() -> bool:
         list_check = []
         for orig_table in list_class:
             if orig_table.__tablename__ in sqlalchemy.inspect(engine).get_table_names():
                 list_check.append(True)
             else:
                 list_check.append(False)
-        if all(list_check):
-            return all(list_check)
-        else:
-            return False
-    def check_column():
+        return all(list_check)
+
+    def check_column() -> bool:
         list_check = []
         try:
             for table in list_class:

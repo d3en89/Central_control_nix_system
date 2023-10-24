@@ -1,7 +1,9 @@
 import sys
 import os
 from PyQt5 import QtWidgets, QtCore
+from PyQt5.QtSql import QSqlDatabase, QSqlQuery, QSqlTableModel, QSqlQueryModel
 from PyQt5.QtWidgets import QMessageBox, QDialog
+from typing import NoReturn
 
 from scripts.sc_database import create_database, DATABASE, Config
 from scripts.checking_param import  check_fsettings,check_db_table
@@ -9,17 +11,17 @@ from all_desing import desing, createUser
 
 
 class EnterUser(QDialog, createUser.Ui_createUser):
-    def __init__(self):
+    def __init__(self) -> NoReturn:
         super().__init__()
         self.setupUi(self)
         self.pushButton_post.clicked.connect(self.enter_user)
 
-    def enter_user(self):
+    def enter_user(self) -> NoReturn:
         self.close()
 
 class ExampleApp(QtWidgets.QMainWindow, desing.Ui_MainMenu):
     """ Иницилизируем класс основного дизайна """
-    def __init__(self):
+    def __init__(self) -> NoReturn:
         super().__init__()
         self.ub = ''
         self.up = ''
@@ -27,8 +29,13 @@ class ExampleApp(QtWidgets.QMainWindow, desing.Ui_MainMenu):
         self.action_exit.triggered.connect(QtCore.QCoreApplication.instance().quit)
         self.action_create_db.triggered.connect(self.new_base)
         self.action_connect_db.triggered.connect(self.enter_base)
-
-    def new_base(self):
+        ######################################
+        # self.list_srv = QSqlTableModel(self)
+        # self.list_srv.setTable('servers')
+        # self.list_srv.select()
+        # self.tableWidget.setModel(self.list_srv)
+        #######################################
+    def new_base(self) -> NoReturn:
         """ Используется для создания новой базы с названием default.db,
             база создаётся там же, от куда запускается данное приложение.
         """
@@ -54,7 +61,7 @@ class ExampleApp(QtWidgets.QMainWindow, desing.Ui_MainMenu):
             error.setText(f"{err}")
             error.exec_()
 
-    def enter_base(self):
+    def enter_base(self) -> NoReturn:
         """ Используется для подключения уже существущей базы которую вы укажитt
             изменяет параметры в файле settings.conf,  так же при подключении
             проверяет указанную базу на корректную структуру.
@@ -79,11 +86,14 @@ class ExampleApp(QtWidgets.QMainWindow, desing.Ui_MainMenu):
             error.setIcon(QMessageBox.Critical)
             error.setText(f"{err}")
             error.exec_()
+########################
+    def list_servres(self):
+        pass
+
+##########################
 
 
-
-
-def main():
+def main() -> NoReturn:
     check_fsettings()
     app = QtWidgets.QApplication(sys.argv)  # Новый экземпляр QApplication
     window = ExampleApp()  # Создаём объект класса ExampleApp

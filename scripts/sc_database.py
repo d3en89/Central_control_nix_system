@@ -1,6 +1,7 @@
 from os import path
 import configparser
 import hashlib
+from typing import NoReturn
 
 from db.database import connect_db, Session, DATABASE
 from db.models_db import Servers, Syslog
@@ -9,19 +10,19 @@ from db.models_db import Servers, Syslog
 class Config(configparser.ConfigParser):
     __config_path = './settings.conf'
 
-    def get_settings(self):
+    def get_settings(self) -> NoReturn:
         self.read(self.__config_path)
         self.db = self.get('base', 'path_db')
         self.username = self.get('base', 'username')
 
-    def set_settings(self, username, database='default.db'):
+    def set_settings(self, username, database='default.db') -> NoReturn:
         self.set('base', 'path_db', database)
         self.set('base', 'username', username)
         with open(self.__config_path, 'r+') as conf_file:
             self.write(conf_file)
 
 
-def log_write(mes :str):
+def log_write(mes :str) -> NoReturn:
     session = Session()
     str_log = Syslog(mes)
     session.add(str_log)
@@ -29,14 +30,14 @@ def log_write(mes :str):
     session.close()
 
 
-def create_database(name=DATABASE):
+def create_database(name=DATABASE) -> str:
     if not path.exists(name):
         try:
             connect_db()
             log_write(f"Создание базы {name} прошло успешно")
             return f"Создание базы {name} прошло успешно"
         except Exception as err:
-            return err
+            return f"{err}"
     else:
         return f"Имя default.db уже существует"
 
@@ -50,7 +51,7 @@ def get_hash(login, password, serv_p=''):
 
 
 
-def add_server(name, ip, username, password, ssh_port,group="",system="" ):
+def add_server(name, ip, username, password, ssh_port,group="",system="" ) -> None:
     try:
         srv = Servers(name, ip, username, password, ssh_port,group,system)
         session = Session()
@@ -60,7 +61,7 @@ def add_server(name, ip, username, password, ssh_port,group="",system="" ):
         log_write(f"Server added {name}, {ip}, {username}, {ssh_port} and password")
     except Exception as err:
         log_write(err)
-        return err
+        return f"{err}"
 
 def get_servers(name=""):
     session = Session()

@@ -9,10 +9,10 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from typing import NoReturn
 
 class Ui_MainMenu(object):
-    def setupUi(self, MainMenu):
+    def setupUi(self, MainMenu) -> NoReturn:
         MainMenu.setObjectName("MainMenu")
         MainMenu.resize(678, 472)
         self.centralwidget = QtWidgets.QWidget(MainMenu)
@@ -76,7 +76,7 @@ class Ui_MainMenu(object):
         self.retranslateUi(MainMenu)
         QtCore.QMetaObject.connectSlotsByName(MainMenu)
 
-    def retranslateUi(self, MainMenu):
+    def retranslateUi(self, MainMenu) -> NoReturn:
         _translate = QtCore.QCoreApplication.translate
         MainMenu.setWindowTitle(_translate("MainMenu", "Controlcenter"))
         self.menu_base.setTitle(_translate("MainMenu", "База"))
